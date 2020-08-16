@@ -16,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/leivanoe1011/scrapeNews/issues"
   },
-  "homepage": "https://github.com/leivanoe1011/scrapeNews#readme"
+  "homepage": "https://github.com/leivanoe1011/scrapeNews#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "cheerio": "^1.0.0-rc.3",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.1.0",
+    "mongoose": "^5.10.0"
+  }
 }
