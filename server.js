@@ -12,6 +12,11 @@ var cheerio = require("cheerio");
 var PORT = process.env.PORT || 3001;
 
 
+
+var app = express();
+
+
+
 // Middleware
 // Extended will allow our Request variable within our Routers
 // to access form inputs
@@ -35,12 +40,22 @@ app.engine(
 app.set("view engine", "handlebars");
 
 
-// Starting the server, syncing our models ------------------------------------/
-models.sequelize.sync().then(function () {
-    app.listen(PORT, function () {
-      console.log("listening on port: " + PORT);
-    });
-  });
+// // Starting the server, syncing our models ------------------------------------/
+// models.sequelize.sync().then(function () {
+//     app.listen(PORT, function () {
+//       console.log("listening on port: " + PORT);
+//     });
+//   });
+
+require("./routes/htmlRoutes")(app);
+
+
   
+app.listen(PORT, function () {
+    console.log("listening on port: " + PORT);
+});
+
+
 module.exports = app;
+
 

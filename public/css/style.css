@@ -1,0 +1,8 @@
+
+#indexMainImg{
+    background-image: url("../img/newspapers_xl.jpg");
+    background-size: cover;
+    background-position: center;
+    min-height: 60vw;
+    font-family: 'Bad Script', cursive; 
+}
