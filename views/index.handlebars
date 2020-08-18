@@ -1,7 +1,198 @@
-<h1>Hello World</h1>
+    <h1>Hello World</h1>
 
-<div id="divContent">
+    <div id="divContent">
 
-</div>
+    </div>
 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    {{!-- <script defer type="text/javascript" src="/public/js/app.js"></script> --}}
+
+
+    <script>
+
+
+        // At first the app will show no new articles
+
+        // When I scrape aricles need a modal that will show the articles that I scrapped
+
+        // Each article generated will have a button to save the article. 
+
+        // In the saved articles we are going to show all the articles saved. 
+
+        // The list of saved articles will have a button to add notes or delete saved
+
+        // The modal to write a note will have a Save Note button. 
+
+        // All the notes for that article will be saved 
+
+        // Once the note is saved, we can access the note and each note rendered will have a DELETE button
+
+        // If we don't have any saved articles we need to show no saved articles
+
+
+
+        function createScrappedDocuments(){
+
+            var urlPath = "/scrape";
+            var ajaxType = "GET";
+
+            $.ajax({
+                url: urlPath,
+                type: ajaxType,
+                success: function(response){
+                    console.log("After Scrape");
+                    console.log(response);
+
+                    // Need to add Modal Here
+                    location.reload();
+
+                }
+            })
+
+        }
+
+        function displayScrappedDocuments(result){
+
+            $("#divContent").empty();
+
+            console.log("In display scrapped documents");
+
+            console.log(result);
+
+            var data = result;
+
+                    
+            var row = $("<div>");
+        
+            $(row).addClass("row");
+
+
+            for(var i = 0; i < result.length; i++){
+
+
+                var col = $("<div>");
+
+                $(col).addClass("col-12");
+
+
+                var rowRow = $("<div>");
+
+                $(rowRow).addClass("row");
+
+                var articleTitle = $("<span>");
+                
+                $(articleTitle).addClass("col-lg-10");
+
+                $(articleTitle).text(data[i].title);
+
+
+                var saveArticle = $("<button>");
+
+                $(saveArticle).addClass("col-lg-2");
+
+                $(saveArticle).data("id",data[i]._id)
+
+
+                var articleLink = $("<span>");
+                
+                $(articleTitle).addClass("col-12");
+                
+                $(articleLink).text(data[i].link);
+
+                
+                $(rowRow).append(articleTitle);
+                $(rowRow).append(saveArticle);
+                $(rowRow).append(articleLink);
+
+
+                $(col).append(rowRow);
+                $(row).append(col);
+
+            }
+
+            $("#divContent").append(row);
+
+           // location.reload();
+
+        }
+
+        function noScrappedDocuments(){
+
+            var row = $("<div>");
+            
+            $(row).addClass("row");
+
+            var div = $("<div>");
+            
+            $(div).addClass("col-12");
+
+            $(div).attr("id","noArticlesDisplay");
+
+            $(div).text("Uh Oh. Looks like we don't have any new articles");
+
+
+            $(row).append(div);
+            $("#divContent").append(row);
+
+
+        }
+
+
+        function getScrappedDocuments(){
+            
+            
+            
+        }
+
+
+        function getArticles(){
+
+            console.log("In getArticles");
+
+            var urlPath = "/articles";
+            var ajaxType = "GET";
+
+            $.ajax({
+                url: urlPath,
+                type: ajaxType,
+                success: function(response){
+
+                    if(response.length > 0){
+
+                        displayScrappedDocuments(response);
+
+                    }
+                    else{
+
+                        noScrappedDocuments();
+
+                    }
+                    
+                }
+            })
+            
+        }
+
+
+        $(document).ready(function(){
+                   
+            console.log("Document Ready");
+
+            getArticles();
+
+
+        });
+
+
+        $(document).on("click","#ScrapeNaveLink", function(event){
+            
+            event.preventDefault();
+
+            createScrappedDocuments();
+            
+        })
+
+
+
+    </script>
 

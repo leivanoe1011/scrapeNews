@@ -16,10 +16,7 @@ var cheerio = require("cheerio");
 var db = require("../models");
 
 
-mongoose.connect('mongodb://localhost/nyTimesArticleScrapper', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+mongoose.connect("mongodb://localhost/nyTimesArticleScrapper", { useNewUrlParser: true });
 
 
 var exports = module.exports = {};
@@ -43,6 +40,8 @@ exports.scrape = function (req, res){
         var $ = cheerio.load(response.data);
         // Now, we grab every h2 within an article tag, and do the following:
         
+        var responseArray = [];
+
         // Now, we grab every h2 within an article tag, and do the following:
         $("article").each(function(i, element) {
             // Save an empty result object
@@ -63,15 +62,19 @@ exports.scrape = function (req, res){
             .then(function(dbArticle) {
                 // View the added result in the console
                 // console.log("Response after load")
+                // responseArray.push(dbArticle);
 
             })
             .catch(function(err) {
                 // If an error occurred, log it
                 console.log(err);
             });
+        
         });
+
         // Send a message to the client
         res.send("Scrape Complete");
+        // res.json(responseArray);
   });
 }
 
@@ -80,13 +83,15 @@ exports.articles = function(req, res){
 
     db.Article.find({})
     .then(function(dbArticle){
+        
         res.json(dbArticle);
+        
     })
     .catch(function(err) {
         // If an error occurred, send it to the client
         res.json(err);
     });
-    
+
 }
 
 

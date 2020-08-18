@@ -21,10 +21,11 @@ var flash = require("connect-flash");
 var bodyParser = require('body-parser');
 
 
-var PORT = process.env.PORT || 3001;
+var PORT = process.env.PORT || 3002;
 
 
 var app = express();
+
 
 
 // Middleware
@@ -39,6 +40,16 @@ app.use(express.json());
 // Public Directory
 app.use(express.static("public"));
 
+// Handlebars
+app.engine(
+  "handlebars",
+  exphbs({
+    defaultLayout: "main" // Server will read main.handlebars firstß
+  })
+);
+
+app.set("view engine", "handlebars");
+
 
 // express session and passport session add them both as middleware.
 // session secret
@@ -50,17 +61,6 @@ app.use(passport.session()); // persistent login sessions\
 
 app.use(flash());
 
-
-
-// Handlebars
-app.engine(
-  "handlebars",
-  exphbs({
-    defaultLayout: "main" // Server will read main.handlebars firstß
-  })
-);
-
-app.set("view engine", "handlebars");
 
 
 // // Starting the server, syncing our models ------------------------------------/
