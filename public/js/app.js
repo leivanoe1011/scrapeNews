@@ -18,4 +18,59 @@
 
 // If we don't have any saved articles we need to show no saved articles
 
+function ajaxCall(url, type){
+    var urlPath = url;
+    var ajaxType = type;
+
+    $.ajax({
+        url: urlPath,
+        type: ajaxType,
+        success: function(response){
+            return response;
+        }
+    })
+}
+
+
+function createScrappedDocuments(){
+    var ajaxResponse = ajaxCall("/scrape","GET");
+    
+    console.log("In createScrappedDocuments");
+    console.log(ajaxResponse);
+
+}
+
+function displayScrappedDocuments(result){
+
+}
+
+function noScrappedDocuments(){
+
+}
+
+
+function getScrappedDocuments(){
+    
+    var ajaxResponse = ajaxCall("","GET");
+   
+}
+
+
+$(document).ready(function(){
+    
+    
+    console.log("Document Ready");
+
+
+});
+
+
+$(document).on("click","#ScrapeNaveLink", function(event){
+    
+    event.preventDefaul();
+
+    createScrappedDocuments();
+    
+})
+
 

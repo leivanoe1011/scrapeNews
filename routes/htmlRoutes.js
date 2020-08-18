@@ -1,13 +1,14 @@
-var authController = require('../controllers/htmlController.js');
+
+
+var htmlController = require('../controllers/htmlController.js');
 
 module.exports = function (app) {
 
-    app.get("/", authController.index);
+    app.get("/", htmlController.index);
 
-    app.get("/about", authController.about);
+    app.get("/scrape", htmlController.scrape);
 
-    app.get("/feed", authController.feed);
-
+    app.get("/articles", htmlController.articles);
 
 };
 
