@@ -31,10 +31,11 @@ exports.scrape = function (req, res){
 
     var url = "https://www.nytimes.com";
 
-    console.log(url);
 
     // First, we grab the body of the html with axios
     axios.get(url).then(function(response) {
+
+        // console.log(response);
 
         // Then, we load that into cheerio and save it to $ for a shorthand selector
         var $ = cheerio.load(response.data);
@@ -44,17 +45,69 @@ exports.scrape = function (req, res){
 
         // Now, we grab every h2 within an article tag, and do the following:
         $("article").each(function(i, element) {
+
+
             // Save an empty result object
             var result = {};
 
+            var articleTitle = $(element).find("h2").text();
+            var articleLink = ($(element).find("a").attr("href") === undefined) ? "NA" : url + $(element).find("a").attr("href");
+            var articleSummary = $(element).find("p").text();
+            
 
-            if($(element).children().text() === "" || $(element).find("a").attr("href") === undefined){
+            if(articleTitle === "" || articleLink === undefined){
+                return;
+            }
+
+            if(articleSummary === "" || articleSummary === undefined){
                 return;
             }
 
 
-            result.title = ($(element).children().text() === "") ? "NA" : $(element).children().text() ;
-            result.link = ($(element).find("a").attr("href") === undefined) ? "NA" : $(element).find("a").attr("href") ;
+            result.title = articleTitle;
+            result.link = articleLink;
+            result.summary = articleSummary;
+
+
+            // Create a new Article using the `result` object built from scraping
+            db.Article.create(result)
+            .then(function(dbArticle) {
+                // View the added result in the console
+                // console.log("Response after load")
+                // responseArray.push(dbArticle);
+
+            })
+            .catch(function(err) {
+                // If an error occurred, log it
+                console.log(err);
+            });
+        
+        });
+
+
+        $("div.story-wrapper").each(function(i, element) {
+
+
+            // Save an empty result object
+            var result = {};
+
+            var articleTitle = $(element).find("h3").text();
+            var articleLink = ($(element).find("a").attr("href") === undefined) ? "NA" : url + $(element).find("a").attr("href");
+            var articleSummary = $(element).find("p").text();
+            
+
+            if(articleTitle === "" || articleLink === undefined){
+                return;
+            }
+
+            if(articleSummary === "" || articleSummary === undefined){
+                return;
+            }
+
+
+            result.title = articleTitle;
+            result.link = articleLink;
+            result.summary = articleSummary;
 
 
             // Create a new Article using the `result` object built from scraping

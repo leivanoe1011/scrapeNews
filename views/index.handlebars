@@ -1,3 +1,15 @@
+    
+    <style>
+
+        .save-btn{
+            line-height: 10px !important;
+        }
+
+        .article_row{
+            margin-bottom: 50px;
+        }
+
+    </style>
     <h1>Hello World</h1>
 
     <div id="divContent">
@@ -61,57 +73,52 @@
 
             var data = result;
 
-                    
-            var row = $("<div>");
-        
-            $(row).addClass("row");
-
+            
 
             for(var i = 0; i < result.length; i++){
 
+                var row = $("<div>");
+                
+                $(row).addClass("row article_row");
 
-                var col = $("<div>");
-
-                $(col).addClass("col-12");
-
-
-                var rowRow = $("<div>");
-
-                $(rowRow).addClass("row");
-
-                var articleTitle = $("<span>");
+                
+                
+                var articleTitle = $("<a>");
                 
                 $(articleTitle).addClass("col-lg-10");
 
                 $(articleTitle).text(data[i].title);
 
+                $(articleTitle).attr("href", data[i].link);
+
 
                 var saveArticle = $("<button>");
 
-                $(saveArticle).addClass("col-lg-2");
+                $(saveArticle).addClass("btn btn-light col-lg-2 btn-lg save-btn");
 
-                $(saveArticle).data("id",data[i]._id)
+                $(saveArticle).attr("type","button");
+
+                $(saveArticle).text("SAVE");
+
+                $(saveArticle).data("id",data[i]._id);
 
 
-                var articleLink = $("<span>");
+                var articleSummary = $("<span>");
                 
-                $(articleTitle).addClass("col-12");
+                $(articleSummary).addClass("col-10");
                 
-                $(articleLink).text(data[i].link);
+                $(articleSummary).text(data[i].summary);
 
+
+                $(row).append(articleTitle);
+                $(row).append(saveArticle);
+                $(row).append(articleSummary);
                 
-                $(rowRow).append(articleTitle);
-                $(rowRow).append(saveArticle);
-                $(rowRow).append(articleLink);
-
-
-                $(col).append(rowRow);
-                $(row).append(col);
+                $("#divContent").append(row);
 
             }
 
-            $("#divContent").append(row);
-
+           
            // location.reload();
 
         }

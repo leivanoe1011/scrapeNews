@@ -6,3 +6,12 @@
     min-height: 60vw;
     font-family: 'Bad Script', cursive; 
 }
+
+
+.save-btn{
+    line-height: 10px !important;
+}
+
+.article_row{
+    margin-bottom: 10px;
+}
