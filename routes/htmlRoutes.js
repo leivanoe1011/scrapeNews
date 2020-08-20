@@ -10,5 +10,13 @@ module.exports = function (app) {
 
     app.get("/articles", htmlController.articles);
 
+    app.post("/savearticle", htmlController.saveArticle);
+
+    // Get all Saved Articles
+    app.get("/savedarticle", htmlController.savedArticle);
+
+    // Get Save HBS page
+    app.get("/saved", htmlController.saved);
+
 };
 

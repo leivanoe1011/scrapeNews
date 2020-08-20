@@ -27,6 +27,11 @@ exports.index = function (req, res) {
 };
 
 
+exports.saved = function(req, res){
+    res.render("saved", { msg: "about page" });
+}
+
+
 exports.scrape = function (req, res){
 
     var url = "https://www.nytimes.com";
@@ -146,5 +151,50 @@ exports.articles = function(req, res){
     });
 
 }
+
+
+// Load new Article into Saved DB.
+exports.saveArticle = function(req, res){
+
+    var obj = req.body;
+
+
+    db.SavedArticle.create({}).then(function(dbSavedArticle){
+
+        return db.Article.findOneAndUpdate({_id: obj.id}, {saved: dbSavedArticle._id}, {new: true});
+    })
+    .then(function(dbArticle) {
+        // If we were able to successfully update an Article, send it back to the client
+        res.json(dbArticle);
+    })
+    .catch(function(err) {
+        // If an error occurred, send it to the client
+        res.json(err);
+    });
+
+}
+
+exports.saveNote = function(req, res){
+
+}
+
+
+// Get all Articles saved
+exports.savedArticle = function(req, res){
+    
+    db.Article.find({saved : {$exists:true}})
+    .populate("note","saved")
+    .then(function(dbSavedArticle){
+        res.json(dbSavedArticle);
+    })
+    .catch(function(err) {
+        // If an error occurred, send it to the client
+        res.json(err);
+    });
+}
+
+
+
+
 
 

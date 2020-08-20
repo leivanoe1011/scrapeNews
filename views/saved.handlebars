@@ -1,0 +1,136 @@
+
+<h1>In Saved</h1>
+
+
+<div id="divContent">
+    
+</div>
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+
+    function displayScrappedDocuments(result){
+
+        $("#divContent").empty();
+
+        console.log("In display scrapped documents");
+
+        console.log(result);
+
+        var data = result;
+
+        
+
+        for(var i = 0; i < data.length; i++){
+
+            var row = $("<div>");
+            
+            $(row).addClass("row article_row");
+
+            
+            
+            var articleTitle = $("<a>");
+            
+            $(articleTitle).addClass("col-lg-10");
+
+            $(articleTitle).text(data[i].title);
+
+            $(articleTitle).attr("href", data[i].link);
+
+
+            var saveArticle = $("<a>");
+
+            $(saveArticle).addClass("btn btn-light col-lg-2 btn-lg save-btn");
+
+            $(saveArticle).attr("type","button");
+
+            $(saveArticle).text("SAVE");
+
+            $(saveArticle).attr("obj_id",data[i]._id);
+
+
+            var articleSummary = $("<span>");
+            
+            $(articleSummary).addClass("col-10");
+            
+            $(articleSummary).text(data[i].summary);
+
+
+            $(row).append(articleTitle);
+            $(row).append(saveArticle);
+            $(row).append(articleSummary);
+            
+            $("#divContent").append(row);
+
+        }
+
+        
+        // location.reload();
+
+    }
+
+
+
+    function noScrappedDocuments(){
+
+        var row = $("<div>");
+        
+        $(row).addClass("row");
+
+        var div = $("<div>");
+        
+        $(div).addClass("col-12");
+
+        $(div).attr("id","noArticlesDisplay");
+
+        $(div).text("Uh Oh. Looks like we don't have any new articles");
+
+
+        $(row).append(div);
+        $("#divContent").append(row);
+
+
+    }
+
+
+    function getArticles(){
+
+        console.log("In getArticles");
+
+        var urlPath = "/savedarticle";
+        var ajaxType = "GET";
+
+        $.ajax({
+            url: urlPath,
+            type: ajaxType,
+            success: function(response){
+
+                console.log("In success saved page");
+                console.log(response);
+
+                if(response.length > 0){
+
+                    displayScrappedDocuments(response);
+
+                }
+                else{
+
+                    noScrappedDocuments();
+
+                }
+                
+            }
+        });
+        
+    };
+
+
+
+    $(document).ready(function(){
+        getArticles();
+    })
+
+
+</script>

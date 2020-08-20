@@ -75,7 +75,7 @@
 
             
 
-            for(var i = 0; i < result.length; i++){
+            for(var i = 0; i < data.length; i++){
 
                 var row = $("<div>");
                 
@@ -92,7 +92,7 @@
                 $(articleTitle).attr("href", data[i].link);
 
 
-                var saveArticle = $("<button>");
+                var saveArticle = $("<a>");
 
                 $(saveArticle).addClass("btn btn-light col-lg-2 btn-lg save-btn");
 
@@ -100,7 +100,7 @@
 
                 $(saveArticle).text("SAVE");
 
-                $(saveArticle).data("id",data[i]._id);
+                $(saveArticle).attr("obj_id",data[i]._id);
 
 
                 var articleSummary = $("<span>");
@@ -198,6 +198,34 @@
             createScrappedDocuments();
             
         })
+
+        $(document).on("click",".save-btn", function(event){
+
+            var currentBtn = $(this);
+
+            var mongId = $(currentBtn).attr("obj_id");
+
+            console.log(this);
+            console.log($(currentBtn));
+
+            var obj = {id: mongId};
+
+            console.log(obj);
+
+
+            var urlPath = "/savearticle";
+            var ajaxType = "POST";
+
+            $.ajax({
+                url: urlPath,
+                type: ajaxType,
+                data: obj,
+                success: function(response){
+                    console.log("It worked");
+                }
+            });
+
+        });
 
 
 
