@@ -18,7 +18,12 @@ module.exports = function (app) {
     // Get Save HBS page
     app.get("/saved", htmlController.saved);
 
-    app.delete("/removeSaved", htmlController.deleteSavedArticle)
+    app.delete("/removeSaved", htmlController.deleteSavedArticle);
+
+    app.get("/getNote", htmlController.getNote);
+
+    app.post("/addNote", htmlController.addNote);
+    
 
 };
 

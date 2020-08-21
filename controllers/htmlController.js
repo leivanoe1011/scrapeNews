@@ -174,9 +174,6 @@ exports.saveArticle = function(req, res){
 
 }
 
-exports.saveNote = function(req, res){
-
-}
 
 
 // Get all Articles saved
@@ -210,6 +207,45 @@ exports.deleteSavedArticle = function(req, res){
         // If an error occurred, send it to the client
         res.json(err);
     });
+
+}
+
+
+exports.getNote = function(req, res){
+    
+    var articleId = req.body.id;
+
+    db.Article.find({id:articleId})
+    .populate("note")
+    .then(function(dbArticle){
+        res.json(dbArticle);
+    })
+    .catch(function(err){
+        res.json(err);
+    })
+}
+
+
+exports.addNote = function(req, res){
+
+    var newNote = {};
+    var obj = req.body;
+    var note = obj.newNote;
+
+    newNote.note = note
+
+
+    db.Note.create(newNote).then(function(dbNote){
+
+        return db.Article.findOneAndUpdate({_id: obj.articleId}, {note: dbNote._id}, {new: true});
+    })
+    .then(function(dbArticle) {
+        // If we were able to successfully update an Article, send it back to the client
+        res.json(dbArticle);
+    })
+    .catch(function(err){
+        res.json(err);
+    })
 
 }
 

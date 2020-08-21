@@ -4,6 +4,8 @@ var express = require("express");
 
 var exphbs = require("express-handlebars");
 
+var path = require("path");
+
 // Passport
 // import the passport module and the express-session, 
 // both of which we need to handle authentication
@@ -38,7 +40,8 @@ app.use(express.json());
 
 // The Middleware below will begin reading the files from the 
 // Public Directory
-app.use(express.static("public"));
+
+app.use(express.static(path.join(__dirname, "/public")));
 
 // Handlebars
 app.engine(

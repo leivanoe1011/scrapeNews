@@ -36,8 +36,47 @@
     
 </div>
 
+<div id="myModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Notes</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <form>
 
+            <div class="form-group">
+                <label for="exampleInputNote">Note Content</label>
+                <textarea class="form-control" id="exampleInputNote" rows="3" placeholder="Enter Note"></textarea>
+            </div>
+
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button id="saveChanges" type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{{!-- Bootstrap JS --}}
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+{{!-- / Bootstrap JS --}}
+
+{{!-- JQUERY --}}
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+{{!-- JS Bootstrap --}}
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
 
 <script>
 
@@ -71,20 +110,15 @@
 
 
 
-            var articleTitle = $("<a>");
-            
+            var articleTitle = $("<a>");          
             $(articleTitle).addClass("col-12 title-div");
-
             $(articleTitle).text(data[i].title);
-
             $(articleTitle).attr("href", data[i].link);
 
 
 
-            var articleSummary = $("<span>");
-            
-            $(articleSummary).addClass("col-12 summary-div");
-            
+            var articleSummary = $("<span>");         
+            $(articleSummary).addClass("col-12 summary-div");           
             $(articleSummary).text(data[i].summary);
 
             
@@ -95,28 +129,18 @@
 
 
             var note = $("<a>");
-
             $(note).addClass("btn btn-light col-12 btn-lg add-note");
-
             $(note).attr("type","button");
-
             $(note).text("NOTE");
-
             $(note).attr("obj_id",data[i]._id);
 
 
             var unsaveArticle = $("<a>");
-
             $(unsaveArticle).addClass("btn btn-light col-12 btn-lg unsave-btn");
-
             $(unsaveArticle).attr("type","button");
-
             $(unsaveArticle).text("UNSAVE");
-
-            $(unsaveArticle).attr("obj_id",data[i]._id);
-
+            $(unsaveArticle).attr("obj_id", data[i]._id);
             $(unsaveArticle).attr("saved_id", data[i].saved);
-
 
 
             $(rowButtons).append(unsaveArticle);
@@ -170,14 +194,10 @@
             success: function(response){
 
                 if(response.length > 0){
-
                     displayScrappedDocuments(response);
-
                 }
                 else{
-
                     noScrappedDocuments();
-
                 }
             }
         });
@@ -206,18 +226,45 @@
     }
 
 
-    function addNote(obj){
-        var removeObj = obj;
+    function getNote(articleId){
+        
+        var obj = {};
+
+        obj.id = articleId;
+
+        var urlPath = "/getNote";
+        var apiType  = "GET";
+
+        $.ajax({
+            url: urlPath,
+            type: apiType,
+            data: obj,
+            success: function(result){
+
+
+                console.log(result);
+
+                $('#myModal').modal('show');
+                                
+            }
+        });        
+    };
+
+
+    function addNote(noteObj){
+        
+        var obj = noteObj;
         var urlPath = "/addNote";
         var apiType  = "POST";
 
         $.ajax({
             url: urlPath,
             type: apiType,
-            data: removeObj,
+            data: obj,
             success: function(result){
+               
 
-
+                $('#myModal').modal('hide');
                 
             }
         });
@@ -241,12 +288,41 @@
     }
 
 
+    $(document).on("click", "#saveChanges", function(event){
+        
+        event.preventDefault();
+
+        var newNote = $("#exampleInputNote").val();
+
+        var articleId = $("#saveChanges").attr("articleId");
+
+        var obj = {};
+
+        obj.articleId = articleId;
+        obj.newNote = newNote;
+
+        console.log(obj);
+
+        addNote(obj);
+
+     
+
+    });
+
+
     $(document).on("click",".add-note", function(event){
         event.preventDefault();
 
-        var currentBtn = $(this);
+        var currentBtn = $(this); 
 
-        addNote();
+        var articleId = $(currentBtn).attr("obj_id");
+
+        $("#saveChanges").attr("articleId", articleId);
+
+        $('#myModal').modal('show');
+        
+        getNote(articleId);
+        //addNote(articleId);
         
     });
 
