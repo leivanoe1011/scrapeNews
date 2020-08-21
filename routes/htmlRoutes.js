@@ -18,5 +18,7 @@ module.exports = function (app) {
     // Get Save HBS page
     app.get("/saved", htmlController.saved);
 
+    app.delete("/removeSaved", htmlController.deleteSavedArticle)
+
 };
 

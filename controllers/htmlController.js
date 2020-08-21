@@ -194,6 +194,25 @@ exports.savedArticle = function(req, res){
 }
 
 
+exports.deleteSavedArticle = function(req, res){
+
+    console.log("Deleting Saved Article");
+    var obj = req.body;
+
+    db.SavedArticle.findByIdAndDelete({_id: obj.savedId})
+    .then(function(dbUnsaveArticle){
+        db.Article.findOneAndUpdate({_id: obj.articleId}, { $unset: {saved: ""}})
+        .then(function(dbArticle){
+            res.send("it worked");
+        })
+    })
+    .catch(function(err) {
+        // If an error occurred, send it to the client
+        res.json(err);
+    });
+
+}
+
 
 
 

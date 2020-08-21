@@ -2,15 +2,22 @@
     
     <style>
 
+        .article_row{
+            font-family:sans-serif;
+        }
         
         .content-div{
             margin-bottom: 50px;
-            background-color: #2756f0 ;
-            
+        }
+
+        .title-div{
+            font-size: xx-large;
+            background-color: #3882f2 ;
+            color: #fefefe;
         }
 
         .content-div, a, span {
-            color: #fefefe
+            
         }
 
         .add-note,.unsave-btn{
@@ -38,13 +45,8 @@
 
         $("#divContent").empty();
 
-        console.log("In display scrapped documents");
-
-        console.log(result);
-
         var data = result;
-
-        
+   
 
         for(var i = 0; i < data.length; i++){
 
@@ -56,7 +58,7 @@
             var colButton = $("<div>");
 
             $(colContent).addClass("col-10 content-div");
-            $(colButton).addClass("col-2");
+            $(colButton).addClass("col-2 button-div");
 
 
 
@@ -113,6 +115,9 @@
 
             $(unsaveArticle).attr("obj_id",data[i]._id);
 
+            $(unsaveArticle).attr("saved_id", data[i].saved);
+
+
 
             $(rowButtons).append(unsaveArticle);
             $(rowButtons).append(note);
@@ -126,12 +131,10 @@
             $("#divContent").append(row);
 
         }
-
-        
+     
         // location.reload();
 
     }
-
 
 
     function noScrappedDocuments(){
@@ -152,13 +155,11 @@
         $(row).append(div);
         $("#divContent").append(row);
 
-
     }
 
 
     function getArticles(){
 
-        console.log("In getArticles");
 
         var urlPath = "/savedarticle";
         var ajaxType = "GET";
@@ -167,9 +168,6 @@
             url: urlPath,
             type: ajaxType,
             success: function(response){
-
-                console.log("In success saved page");
-                console.log(response);
 
                 if(response.length > 0){
 
@@ -181,17 +179,111 @@
                     noScrappedDocuments();
 
                 }
-                
             }
         });
         
     };
 
 
+    function removeSavedArticle(obj){
+
+
+        var removeObj = obj;
+        var urlPath = "/removeSaved";
+        var apiType  = "DELETE";
+
+        $.ajax({
+            url: urlPath,
+            type: apiType,
+            data: removeObj,
+            success: function(result){
+
+                location.reload();
+
+            }
+        });
+
+    }
+
+
+    function addNote(obj){
+        var removeObj = obj;
+        var urlPath = "/addNote";
+        var apiType  = "POST";
+
+        $.ajax({
+            url: urlPath,
+            type: apiType,
+            data: removeObj,
+            success: function(result){
+
+
+                
+            }
+        });
+    }
+
+
+    function removeNote(obj){
+        var removeObj = obj;
+        var urlPath = "/removeNote";
+        var apiType  = "DELETE";
+
+        $.ajax({
+            url: urlPath,
+            type: apiType,
+            data: removeObj,
+            success: function(result){
+                
+                
+            }
+        });
+    }
+
+
+    $(document).on("click",".add-note", function(event){
+        event.preventDefault();
+
+        var currentBtn = $(this);
+
+        addNote();
+        
+    });
+
+
+    $(document).on("click",".delete-note", function(event){
+        event.preventDefault();
+
+        var currentBtn = $(this);
+
+        removeNote();
+    });
+
+
+    $(document).on("click",".unsave-btn", function(event){
+
+
+        event.preventDefault();
+
+        var currentBtn = $(this);
+
+        var articleId = $(currentBtn).attr("obj_id");
+
+        var savedId = $(currentBtn).attr("saved_id");
+
+        var obj = {};
+
+        obj.articleId = articleId;
+        obj.savedId = savedId;
+
+        removeSavedArticle(obj);
+
+    });
+
 
     $(document).ready(function(){
         getArticles();
-    })
+    });
 
 
 </script>
