@@ -5,3 +5,44 @@
 .article_row{
     margin-bottom: 50px;
 }
+
+
+.module {
+    width: 100%;
+    height: 50vh;
+    display: grid;
+    place-items: center;
+    color: #ff43ea;
+    position: relative;
+  }
+  .module::before {
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-image: url("/img/newspaper_tophalf.jpg");
+    background-size: cover;
+    filter: brightness(0.2) !important;
+  }
+  .module-inside {
+    position: relative;
+    /* font: bold 42px sans-serif; */
+    font-family: 'Montserrat', sans-serif;
+  }
+
+
+h1, h3{
+    color: #fefefe !important;
+}
+
+
+h1{
+    font-size: 150px;
+    font-weight: bolder;
+}
+
+h3 {
+    font-size: 45px;
+}

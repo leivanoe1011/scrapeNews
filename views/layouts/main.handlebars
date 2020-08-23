@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+    {{!-- Google Fonts --}}
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
+    {{!--  --}}
+
+
     {{!-- bootstrap --}}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     {{!-- / bootstrap --}}
@@ -27,7 +32,7 @@
     
     <div  class="container-fluid">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Mongo Scrapper</a>
+            <a class="navbar-brand" href="#">Mongo Scraper</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -43,34 +48,43 @@
                         <a id="savedArticleLink"  class="nav-link" href="/saved">Saved Articles</a id="homeNavLink">
                     </li>
     
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
                     <li class="nav-item">
                         <button id="ScrapeNaveLink" type="button" class="btn btn-danger">SCRAPE NEW ARTICLES!</button>
                     </li>
-
                 </ul>
+                    
                
             </div>
         </nav>
     </div>
 
-    <div  class="container-fluid" alt="resp">
+    {{!-- <div  class="container-fluid" alt="resp">
 
-        <div class="row">
+        <div class="row shadow bg-white rounded">
             <div class="col-12">
-                <img class="img-fluid" 
+                <img id="cover-img" class="img-fluid" 
                     src="/img/newspaper_tophalf.jpg" alt="placeholder" role="img">
             </div>
         </div>
 
-    </div>
+    </div> --}}
 
 
-    <div class="container">
+    <div>
          {{{body}}}
     </div>
    
 
 
+    {{!-- <footer class="container fixed-bottom">
+        <div class="row d-flex justify-content-center">
+             <p class="col-12">MongoDB Scrapper 2020</p>
+        </div>
+       
+    </footer> --}}
 
 </body>
 </html>

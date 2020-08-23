@@ -1,4 +1,6 @@
 
+
+
 #indexMainImg{
     background-image: url("../img/newspapers_xl.jpg");
     background-size: cover;
@@ -14,4 +16,8 @@
 
 .article_row{
     margin-bottom: 10px;
+}
+
+.img-fluid{
+    filter: brightness(0.2) !important;
 }

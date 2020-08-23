@@ -11,7 +11,7 @@ function displayScrappedDocuments(result){
 
         var row = $("<div>");
         
-        $(row).addClass("row article_row");
+        $(row).addClass("row article_row shadow p-3 mb-5 bg-white rounded");
 
         var colContent = $("<div>");
         var colButton = $("<div>");

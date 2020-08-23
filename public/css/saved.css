@@ -1,24 +1,65 @@
 
-    .article_row{
-        font-family:sans-serif;
-    }
+.article_row{
+    font-family:sans-serif;
+}
+
+.content-div{
+    margin-bottom: 50px;
+}
+
+.title-div{
+    font-size: xx-large;
+    background-color: #3882f2 ;
+    color: #fefefe;
+}
+
+.content-div, a, span {
     
-    .content-div{
-        margin-bottom: 50px;
-    }
+}
 
-    .title-div{
-        font-size: xx-large;
-        background-color: #3882f2 ;
-        color: #fefefe;
-    }
+.add-note,.unsave-btn{
+    line-height: 10px !important;
+    margin-bottom: 5px;
+    color: black
+}
 
-    .content-div, a, span {
-        
-    }
 
-    .add-note,.unsave-btn{
-        line-height: 10px !important;
-        margin-bottom: 5px;
-        color: black
-    }
+
+.module {
+    width: 100%;
+    height: 50vh;
+    display: grid;
+    place-items: center;
+    position: relative;
+  }
+  .module::before {
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-image: url("/img/newspaper_tophalf.jpg");
+    background-size: cover;
+    filter: brightness(0.2) !important;
+  }
+  .module-inside {
+    position: relative;
+    /* font: bold 42px sans-serif; */
+    font-family: 'Montserrat', sans-serif;
+  }
+
+h1, h3{
+    color: #fefefe !important;
+}
+
+
+h1{
+    font-size: 150px;
+    font-weight: bolder;
+}
+
+h3 {
+    font-size: 45px;
+}
+
