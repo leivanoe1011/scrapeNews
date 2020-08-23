@@ -47,8 +47,6 @@
                 url: urlPath,
                 type: ajaxType,
                 success: function(response){
-                    console.log("After Scrape");
-                    console.log(response);
 
                     // Need to add Modal Here
                     location.reload();
@@ -62,13 +60,7 @@
 
             $("#divContent").empty();
 
-            console.log("In display scrapped documents");
-
-            console.log(result);
-
-            var data = result;
-
-            
+            var data = result;     
 
             for(var i = 0; i < data.length; i++){
 
@@ -142,8 +134,6 @@
 
         function getArticles(){
 
-            console.log("In getArticles");
-
             var urlPath = "/articles";
             var ajaxType = "GET";
 
@@ -171,8 +161,6 @@
 
         $(document).ready(function(){
                    
-            console.log("Document Ready");
-
             getArticles();
 
 
@@ -193,13 +181,7 @@
 
             var mongId = $(currentBtn).attr("obj_id");
 
-            console.log(this);
-            console.log($(currentBtn));
-
             var obj = {id: mongId};
-
-            console.log(obj);
-
 
             var urlPath = "/savearticle";
             var ajaxType = "POST";
@@ -209,7 +191,6 @@
                 type: ajaxType,
                 data: obj,
                 success: function(response){
-                    console.log("It worked");
                 }
             });
 

@@ -22,6 +22,32 @@ mongoose.connect("mongodb://localhost/nyTimesArticleScrapper", { useNewUrlParser
 var exports = module.exports = {};
 
 
+function resetAllCollections(){
+    console.log("Reset all Collection");
+   
+    db.Article.deleteMany({}, function(err, result) {
+        if (err) {
+          res.send(err);
+        } else {
+            db.Note.deleteMany({}, function(err, result) {
+                if (err) {
+                  res.send(err);
+                } else {
+                    db.Note.deleteMany({}, function(err, result) {
+                        if (err) {
+                          res.send(err);
+                        } 
+                    });
+                }
+            });
+        }
+    });     
+
+
+
+}
+
+
 exports.index = function (req, res) {
     res.render("index", { msg: "about page" });
 };
@@ -34,6 +60,8 @@ exports.saved = function(req, res){
 
 exports.scrape = function (req, res){
 
+    resetAllCollections();
+
     var url = "https://www.nytimes.com";
 
 
@@ -41,6 +69,7 @@ exports.scrape = function (req, res){
     axios.get(url).then(function(response) {
 
         // console.log(response);
+
 
         // Then, we load that into cheerio and save it to $ for a shorthand selector
         var $ = cheerio.load(response.data);
@@ -193,7 +222,6 @@ exports.savedArticle = function(req, res){
 
 exports.deleteSavedArticle = function(req, res){
 
-    console.log("Deleting Saved Article");
     var obj = req.body;
 
     db.SavedArticle.findByIdAndDelete({_id: obj.savedId})
@@ -215,9 +243,6 @@ exports.getNote = function(req, res){
     
     var articleId = req.query.id;
 
-    console.log("In get note");
-
-    console.log(articleId);
 
     db.Note.find({article:articleId})
     .populate("article")
@@ -253,10 +278,6 @@ exports.addNote = function(req, res){
 
 exports.updateNote = function(req, res){
     
-    console.log("In update note function");
-
-    console.log(req.body);
-
     var note = req.body;
 
     db.Note.updateOne({_id: note.noteId}, {noteContent: note.noteContent})
@@ -277,11 +298,6 @@ exports.getNote_old1 = function(req, res){
     
     var articleId = req.query.id;
 
-    console.log("In get note");
-
-    console.log(articleId);
-
-
     db.Article.find({_id:articleId})
     .populate("note")
     .then(function(dbArticle){
@@ -300,8 +316,6 @@ exports.addNote_old1 = function(req, res){
 
 
     var obj = req.body;
-
-    console.log("In add note");
 
     const note1 = new db.Note({
         _id: new mongoose.Types.ObjectId(),

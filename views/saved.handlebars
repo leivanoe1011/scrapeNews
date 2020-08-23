@@ -321,8 +321,6 @@
 
         obj.id = articleId;
 
-        console.log(obj);
-
         var urlPath = "/getNote";
         var apiType  = "GET";
 
@@ -332,8 +330,6 @@
             data: obj,
             success: function(result){
 
-                console.log("In success get Note");
-                console.log(result);
 
                 loadNotes(result);
 
@@ -397,8 +393,6 @@
         obj.articleId = articleId;
         obj.newNote = newNote;
 
-        console.log(obj);
-
         addNote(obj);     
 
     });
@@ -411,8 +405,6 @@
 
         var articleId = $(currentBtn).attr("obj_id");
 
-        console.log("in .addnote click");
-        console.log(articleId);
 
         $("#saveChanges").attr("articleId", articleId);
 
