@@ -1,4 +1,24 @@
 
+
+
+.navbar{
+    height: 10vh !important;
+    font-weight: bolder;
+  }
+  
+  .navbar-brand{
+    font-size: 30px;
+    font-family: 'Quicksand', sans-serif;
+    
+  }
+  
+  .nav-item{
+    font-size: 25px;
+    font-family: 'Quicksand', sans-serif;
+  }
+  
+
+
 .article_row{
     font-family:sans-serif;
 }
@@ -31,6 +51,7 @@
     display: grid;
     place-items: center;
     position: relative;
+    margin-bottom: 50px;
   }
   .module::before {
     content: "";

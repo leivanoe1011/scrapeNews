@@ -29,9 +29,14 @@ function displayScrappedDocuments(result){
 
         var row = $("<div>");
         
-        $(row).addClass("row article_row");
+        $(row).addClass("row article_row shadow-lg p-3 mb-5 bg-white rounded");
 
-        
+        var topCol = $("<div>");
+        var topRow = $("<div>");
+
+        var bottomCol = $("<div>");
+        var bottomRow = $("<div>");
+
         
         var articleTitle = $("<a>");
         
@@ -42,15 +47,29 @@ function displayScrappedDocuments(result){
         $(articleTitle).attr("href", data[i].link);
 
 
+        var saveArticleDiv = $("<div>");
+        $(saveArticleDiv).addClass("col-lg-2");
+
         var saveArticle = $("<a>");
 
-        $(saveArticle).addClass("btn btn-light col-lg-2 btn-lg save-btn");
+        $(saveArticle).addClass("btn btn-lg btn-primary save-btn");
 
         $(saveArticle).attr("type","button");
 
-        $(saveArticle).text("SAVE");
+        $(saveArticle).text("Save Article");
 
         $(saveArticle).attr("obj_id",data[i]._id);
+
+        $(saveArticleDiv).append(saveArticle);
+
+
+        $(topCol).addClass("col-12 article-top-col");
+        $(topRow).addClass("row");
+
+        $(topRow).append(articleTitle);
+        $(topRow).append(saveArticleDiv);
+        $(topCol).append(topRow);
+        
 
 
         var articleSummary = $("<span>");
@@ -60,9 +79,15 @@ function displayScrappedDocuments(result){
         $(articleSummary).text(data[i].summary);
 
 
-        $(row).append(articleTitle);
-        $(row).append(saveArticle);
-        $(row).append(articleSummary);
+        $(bottomRow).addClass("row");
+        $(bottomRow).append(articleSummary);
+
+        $(bottomCol).addClass("col-12 article-bottom-col shadow-lg p-3 bg-white rounded");
+        $(bottomCol).append(bottomRow);
+
+        
+        $(row).append(topCol);
+        $(row).append(bottomCol);
         
         $("#divContent").append(row);
 
@@ -126,6 +151,8 @@ $(document).ready(function(){
             
     getArticles();
 
+    $("#savedArticleLink").html('Saved Articles');
+    $("#homeNavLink").html('Home <span class="sr-only">(current)</span>')
 
 });
 

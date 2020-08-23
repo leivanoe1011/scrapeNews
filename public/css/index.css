@@ -1,6 +1,44 @@
-.save-btn{
-    line-height: 10px !important;
+
+
+.navbar{
+  height: 8vh !important;
+  font-weight: bolder;
 }
+
+.navbar-brand{
+  font-size: 30px;
+  font-family: 'Quicksand', sans-serif;
+  
+}
+
+.nav-item{
+  font-size: 25px;
+  font-family: 'Quicksand', sans-serif;
+}
+
+
+
+.article-bottom-col{
+  /* background-color: #7e7e7e !important; */
+  color: #070707;
+  font-size: 20px;
+}
+
+.article-top-col{
+  font-size: 50px;
+  font-family: 'Quicksand', sans-serif;
+  /* background-color: wheat */
+}
+
+.article-top-col a{
+  color: black !important;
+}
+
+.article-top-col .save-btn{
+  line-height: 20px !important;
+  color: #fefefe !important;
+}
+
 
 .article_row{
     margin-bottom: 50px;
@@ -12,8 +50,8 @@
     height: 50vh;
     display: grid;
     place-items: center;
-    color: #ff43ea;
     position: relative;
+    margin-bottom: 50px;
   }
   .module::before {
     content: "";

@@ -519,5 +519,9 @@ $(document).on('click', '.btn_save', function (event) {
 
 $(document).ready(function(){
     getArticles();
+
+    $("#homeNavLink").html('Home');
+    $("#savedArticleLink").html('Saved Articles <span class="sr-only">(current)</span>')
+
 });
 
