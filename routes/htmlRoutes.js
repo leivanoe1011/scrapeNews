@@ -23,6 +23,8 @@ module.exports = function (app) {
     app.get("/getNote", htmlController.getNote);
 
     app.post("/addNote", htmlController.addNote);
+
+    app.put("/updateNote", htmlController.updateNote);
     
 
 };

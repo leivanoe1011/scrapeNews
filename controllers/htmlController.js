@@ -213,9 +213,66 @@ exports.deleteSavedArticle = function(req, res){
 
 exports.getNote = function(req, res){
     
-    var articleId = req.body.id;
+    var articleId = req.query.id;
 
-    db.Article.find({id:articleId})
+    console.log("In get note");
+
+    console.log(articleId);
+
+    db.Note.find({article:articleId})
+    .populate("article")
+    .then(function(dbArticle){
+        res.json(dbArticle);
+    })
+    .catch(function(err){
+        res.json(err);
+    })
+
+}
+
+
+exports.addNote = function(req, res){
+    
+    var newNote = {};
+    var obj = req.body;
+    
+
+    newNote.noteContent = obj.newNote;
+    newNote.article = obj.articleId;
+
+
+    db.Note.create(newNote).then(function(dbNote){
+        res.json(dbArticle);
+    })
+    .catch(function(err){
+        res.json(err);
+    })
+}
+
+
+exports.updateNote = function(req, res){
+    
+    console.log("In update note function");
+
+    console.log(req.body);
+
+    
+}
+
+
+
+
+//  Functions not used below
+exports.getNote_old1 = function(req, res){
+    
+    var articleId = req.query.id;
+
+    console.log("In get note");
+
+    console.log(articleId);
+
+
+    db.Article.find({_id:articleId})
     .populate("note")
     .then(function(dbArticle){
         res.json(dbArticle);
@@ -226,18 +283,55 @@ exports.getNote = function(req, res){
 }
 
 
-exports.addNote = function(req, res){
 
+// addNote
+// addNote_old1
+exports.addNote_old1 = function(req, res){
+
+
+    var obj = req.body;
+
+    console.log("In add note");
+
+    const note1 = new db.Note({
+        _id: new mongoose.Types.ObjectId(),
+        noteContent: obj.newNote,
+        article: obj.articleId
+    });
+
+
+    note1.save(function(err){
+        if(err) return err;
+
+        db.Article.updateOne({_id: obj.article}, {$push: {note: [note1._id]}})
+        .then(function(dbArticle) {
+            // If we were able to successfully update an Article, send it back to the client
+            res.json(dbArticle);
+        })
+
+    })
+
+
+}
+
+// addNote
+// addNote_old1
+// addNote_old2
+exports.addNote_old2 = function(req, res){
+    
     var newNote = {};
     var obj = req.body;
-    var note = obj.newNote;
+    
 
-    newNote.note = note
+    newNote.noteContent = obj.newNote;
+    newNote.article = obj.articleId;
 
 
     db.Note.create(newNote).then(function(dbNote){
 
-        return db.Article.findOneAndUpdate({_id: obj.articleId}, {note: dbNote._id}, {new: true});
+        console.log("New Note ID");
+        console.log(dbNote._id);
+        return db.Article.updateOne({_id: obj.articleId}, {$push: {note: [dbNote._id]}});
     })
     .then(function(dbArticle) {
         // If we were able to successfully update an Article, send it back to the client
@@ -246,8 +340,9 @@ exports.addNote = function(req, res){
     .catch(function(err){
         res.json(err);
     })
-
 }
+
+
 
 
 
