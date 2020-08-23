@@ -16,7 +16,12 @@ var cheerio = require("cheerio");
 var db = require("../models");
 
 
-mongoose.connect("mongodb://localhost/nyTimesArticleScrapper", { useNewUrlParser: true });
+// mongoose.connect("mongodb://localhost/nyTimesArticleScrapper", { useNewUrlParser: true });
+
+
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+
+mongoose.connect(MONGODB_URI);
 
 
 var exports = module.exports = {};
