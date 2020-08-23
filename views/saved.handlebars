@@ -64,7 +64,7 @@
 
       </div>
       <div class="modal-footer">
-        <button id="saveChanges" type="button" class="btn btn-primary">Save changes</button>
+        <button id="saveChanges" type="button" class="btn btn-primary">Save New Note</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -581,7 +581,8 @@
         //--->get row data > start
         var arr = {};
         tbl_row.find('.row_data').each(function (index, val) {
-            var col_name = $(this).attr('col_name');
+            //var col_name = $(this).attr('col_name');
+            var col_name = "noteContent";
             var col_val = $(this).html();
             arr[col_name] = col_val;
 

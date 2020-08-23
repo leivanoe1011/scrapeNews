@@ -241,7 +241,8 @@ exports.addNote = function(req, res){
     newNote.article = obj.articleId;
 
 
-    db.Note.create(newNote).then(function(dbNote){
+    db.Note.create(newNote)
+    .then(function(dbNote){
         res.json(dbArticle);
     })
     .catch(function(err){
@@ -256,7 +257,16 @@ exports.updateNote = function(req, res){
 
     console.log(req.body);
 
-    
+    var note = req.body;
+
+    db.Note.updateOne({_id: note.noteId}, {noteContent: note.noteContent})
+    .then(function(dbNote){
+        res.json(dbNote);
+    })
+    .catch(function(err){
+        res.json(err);
+    })
+
 }
 
 
