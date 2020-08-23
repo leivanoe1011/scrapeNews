@@ -38,7 +38,7 @@ function displayScrappedDocuments(result){
 
 
         var articleSummary = $("<span>");         
-        $(articleSummary).addClass("col-12 summary-div");           
+        $(articleSummary).addClass("col-12 summary-div shadow-lg p-3 bg-white rounded");           
         $(articleSummary).text(data[i].summary);
 
         
@@ -48,23 +48,34 @@ function displayScrappedDocuments(result){
         
 
 
+        var noteDiv = $("<div>");
+        $(noteDiv).addClass("col-12");
+
         var note = $("<a>");
-        $(note).addClass("btn btn-light col-12 btn-lg add-note");
+        $(note).addClass("btn btn-primary btn-lg add-note");
         $(note).attr("type","button");
-        $(note).text("NOTE");
+        $(note).text("REVIEW NOTE");
         $(note).attr("obj_id",data[i]._id);
 
+        $(noteDiv).append(note)
+
+
+        var unSaveArticleDiv = $("<div>");
+        $(unSaveArticleDiv).addClass("col-12");
 
         var unsaveArticle = $("<a>");
-        $(unsaveArticle).addClass("btn btn-light col-12 btn-lg unsave-btn");
+        $(unsaveArticle).addClass("btn btn-info col-12 btn-lg unsave-btn");
         $(unsaveArticle).attr("type","button");
-        $(unsaveArticle).text("UNSAVE");
+        $(unsaveArticle).text("DELETE FROM SAVED");
         $(unsaveArticle).attr("obj_id", data[i]._id);
         $(unsaveArticle).attr("saved_id", data[i].saved);
 
+        $(unSaveArticleDiv).append(unsaveArticle);
 
-        $(rowButtons).append(unsaveArticle);
-        $(rowButtons).append(note);
+
+        $(rowButtons).append(unSaveArticleDiv);
+        $(rowButtons).append(noteDiv);
+
         $(colButton).append(rowButtons);
 
 
@@ -520,8 +531,8 @@ $(document).on('click', '.btn_save', function (event) {
 $(document).ready(function(){
     getArticles();
 
-    $("#homeNavLink").html('Home');
-    $("#savedArticleLink").html('Saved Articles <span class="sr-only">(current)</span>')
+    $("#homeNavLi").removeClass('active');
+    $("#savedArticleNavLi").addClass("active");
 
 });
 

@@ -151,9 +151,8 @@ $(document).ready(function(){
             
     getArticles();
 
-    $("#savedArticleLink").html('Saved Articles');
-    $("#homeNavLink").html('Home <span class="sr-only">(current)</span>')
-
+    $("#savedArticleLink").removeClass('active');
+    $("#homeNavLi").addClass("active");
 });
 
 

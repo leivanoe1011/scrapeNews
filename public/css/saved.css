@@ -2,7 +2,7 @@
 
 
 .navbar{
-    height: 10vh !important;
+    height: 8vh !important;
     font-weight: bolder;
   }
   
@@ -25,22 +25,25 @@
 
 .content-div{
     margin-bottom: 50px;
+    font-family: 'Quicksand', sans-serif;
+
 }
 
 .title-div{
-    font-size: xx-large;
-    background-color: #3882f2 ;
-    color: #fefefe;
+    font-size: 50px;
+    color: #050505;
 }
 
-.content-div, a, span {
-    
+.summary-div {
+    margin-top: 25px;
+    font-size: 25px;
 }
 
 .add-note,.unsave-btn{
-    line-height: 10px !important;
-    margin-bottom: 5px;
-    color: black
+    /* line-height: 10px !important; */
+    margin-bottom: 25px;
+    font-size: 20px !important;
+    color: #fefefe !important;
 }
 
 
