@@ -1,8 +1,18 @@
 
 
 
+#indexMainImg{
+  background-image: url("../img/newspapers_xl.jpg");
+  background-size: cover;
+  background-position: center;
+  min-height: 60vw;
+  font-family: 'Bad Script', cursive; 
+}
+
+
 .navbar{
-    height: 8vh !important;
+     /* min-height will allow the toggle to expand and contract */
+    min-height: 8vh !important; 
     font-weight: bolder;
   }
   
